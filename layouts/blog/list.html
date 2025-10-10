@@ -1,0 +1,81 @@
+{{ define "main" }}
+  {{ $authorPage := site.GetPage "/authors/admin" }}
+  {{ $authorParams := cond $authorPage $authorPage.Params dict }}
+  {{ $avatar := cond $authorPage ($authorPage.Resources.GetMatch "*avatar*") nil }}
+  {{ $blogSection := site.GetPage (printf "/%s" .Section) }}
+  {{ $postCount := cond $blogSection (len $blogSection.RegularPages) (len .Pages) }}
+  {{ $tagCount := len (default dict .Site.Taxonomies.tags) }}
+  {{ $categoryCount := len (default dict .Site.Taxonomies.categories) }}
+
+  <main class="blog-white">
+    <div class="blog-white-layout">
+      <aside class="blog-white-sidebar light">
+        <div class="blog-white-profile">
+          {{ with $avatar }}<img src="{{ .RelPermalink }}" alt="{{ $authorPage.Title }}" />{{ end }}
+          <h2>{{ if $authorPage }}{{ $authorPage.Title }}{{ else }}{{ site.Title }}{{ end }}</h2>
+          <p>又携书剑路茫茫</p>
+        </div>
+        <div class="blog-white-stats">
+          <a class="blog-white-stat" href="{{ .RelPermalink }}">
+            <strong>{{ $postCount }}</strong><span>文章</span>
+          </a>
+          <a class="blog-white-stat" href="/categories/">
+            <strong>{{ $categoryCount }}</strong><span>分类</span>
+          </a>
+          <a class="blog-white-stat" href="/tags/">
+            <strong>{{ $tagCount }}</strong><span>标签</span>
+          </a>
+        </div>
+        {{ with $authorParams.profiles }}
+        <div class="blog-white-sidebar-links">
+          {{ range . }}
+            {{ $link := .url | default .link }}
+            {{ if $link }}
+              <a href="{{ $link }}" target="_blank" rel="noopener" title="{{ .label | default .icon }}">
+                {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-4 h-4'") }}
+              </a>
+            {{ end }}
+          {{ end }}
+        </div>
+        {{ end }}
+      </aside>
+
+      <div class="blog-white-main">
+        <header class="blog-white-header">
+          <h1>{{ .Title }}</h1>
+          {{ with .Content }}{{ . }}{{ end }}
+        </header>
+
+        <section class="blog-white-list">
+          {{ range .Pages.ByDate.Reverse }}
+            {{ $page := . }}
+            <article class="blog-white-card">
+              <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006年1月2日" }}</time>
+              <h2><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h2>
+              {{ if $page.Summary }}
+                <p>{{ $page.Summary | plainify }}</p>
+              {{ else if $page.Params.summary }}
+                <p>{{ $page.Params.summary | plainify }}</p>
+              {{ else if $page.Plain }}
+                <p>{{ $page.Plain | truncate 140 }}</p>
+              {{ end }}
+              <div class="blog-white-meta">
+                <span>🕒 预计阅读 {{ $page.ReadingTime }} 分钟</span>
+                <span>✍️ {{ $page.WordCount }} 字</span>
+                {{ with $page.Params.categories }}
+                  <span>📁 {{ delimit . ", " }}</span>
+                {{ end }}
+                {{ with $page.Params.tags }}
+                  <div class="blog-white-tags">
+                    {{ range . }}<span class="blog-white-tag">{{ . }}</span>{{ end }}
+                  </div>
+                {{ end }}
+                <a class="blog-white-readmore" href="{{ $page.RelPermalink }}">阅读全文 →</a>
+              </div>
+            </article>
+          {{ end }}
+        </section>
+      </div>
+    </div>
+  </main>
+{{ end }}

@@ -7,15 +7,12 @@ main:
   - name: 主页
     url: /
     weight: 10
-  - name: 论文
-    url: papers/
+  - name: 简介
+    url: /about/
     weight: 11
-  - name: 发言
-    url: talks/
+  - name: 研究
+    url: /publications/
     weight: 12
-  - name: 项目
-    url: projects/
-    weight: 30
-  - name: 课程
-    url: courses/
-    weight: 40
+  - name: 博客
+    url: /blog/
+    weight: 13

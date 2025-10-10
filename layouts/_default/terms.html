@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <main class="blog-white">
+    <header class="blog-white-header">
+      <h1>{{ .Title }}</h1>
+    </header>
+    <section class="blog-white-list">
+      {{ range .Data.Terms.Alphabetical }}
+        {{ $termPage := .Page }}
+        <article class="blog-white-card">
+          <h2><a href="{{ $termPage.RelPermalink }}">{{ $termPage.Title }}</a></h2>
+          <div class="blog-white-meta">
+            <span>包含 {{ .Count }} 篇文章</span>
+            <a class="blog-white-readmore" href="{{ $termPage.RelPermalink }}">查看 →</a>
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  </main>
+{{ end }}

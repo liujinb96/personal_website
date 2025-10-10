@@ -1,0 +1,34 @@
+{{ define "main" }}
+  <main class="blog-white">
+    <header class="blog-white-header">
+      <h1>{{ .Title }}</h1>
+      <p>共有 {{ len .Pages }} 篇文章</p>
+    </header>
+
+    <section class="blog-white-list">
+      {{ range .Pages.ByDate.Reverse }}
+        <article class="blog-white-card">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006年1月2日" }}</time>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{ if .Summary }}
+            <p>{{ .Summary | plainify }}</p>
+          {{ else if .Params.summary }}
+            <p>{{ .Params.summary | plainify }}</p>
+          {{ else if .Plain }}
+            <p>{{ .Plain | truncate 140 }}</p>
+          {{ end }}
+          <div class="blog-white-meta">
+            <span>🕒 预计阅读 {{ .ReadingTime }} 分钟</span>
+            <span>✍️ {{ .WordCount }} 字</span>
+            {{ with .Params.tags }}
+              <div class="blog-white-tags">
+                {{ range . }}<span class="blog-white-tag">{{ . }}</span>{{ end }}
+              </div>
+            {{ end }}
+            <a class="blog-white-readmore" href="{{ .RelPermalink }}">阅读全文 →</a>
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  </main>
+{{ end }}
