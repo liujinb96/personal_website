@@ -6,11 +6,11 @@ title: 刘金宝
 name_pronunciation: ''
 
 # Full name (for SEO)
-first_name: 
-last_name: 
+first_name:
+last_name:
 
 # Pronouns (optional)
-pronouns: 
+pronouns:
 
 # Status emoji
 status:
@@ -28,7 +28,7 @@ role: 中国人民大学社会学院
 # Organizations/Affiliations to display in Biography blox
 organizations:
   - name: 社会学系博士研究生
-    url: 
+    url:
 
 # Social network links
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
@@ -38,12 +38,14 @@ profiles:
     label: E-mail Me
   - icon: brands/github
     url: https://github.com/liujinb96
+    label: GitHub
   - icon: brands/linkedin
     url: https://linkedin.com/in/jinbao-liu
+    label: Linkedin
 #  - icon: academicons/google-scholar
-#    url: 
+#    url:
 #  - icon: academicons/orcid
-#    url: 
+#    url:
 
 interests:
   - 社会分层与流动
