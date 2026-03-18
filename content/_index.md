@@ -1,27 +1,27 @@
 ---
 # Leave the homepage title empty to use the site title
-title: ''
+title: ""
 date: 2022-10-24
 type: landing
 
 design:
   # Default section spacing
-  spacing: '3rem'
+  spacing: "3rem"
 
 sections:
   - block: resume-biography-3
     content:
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: admin
-      text: ''
+      text: ""
       # Show a call-to-action button under your biography? (optional)
       button:
         text: 个人简历
         url: uploads/resume.pdf
       headings:
-        about: ''
-        education: ''
-        interests: ''
+        about: ""
+        education: ""
+        interests: ""
     design:
       # Apply a gradient background
       css_class: hbx-bg-gradient

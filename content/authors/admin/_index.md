@@ -3,7 +3,7 @@
 title: 刘金宝
 
 # Name pronunciation (optional)
-name_pronunciation: ''
+name_pronunciation: ""
 
 # Full name (for SEO)
 first_name:
@@ -28,13 +28,13 @@ role: 中国人民大学社会学院
 # Organizations/Affiliations to display in Biography blox
 organizations:
   - name: 社会学系博士研究生
-    url:
+    url: https://ssr.ruc.edu.cn/
 
 # Social network links
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
 profiles:
   - icon: at-symbol
-    url: 'mailto:liujinbao@ruc.edu.cn'
+    url: "mailto:liujinbao@ruc.edu.cn"
     label: E-mail Me
   - icon: brands/github
     url: https://github.com/liujinb96
