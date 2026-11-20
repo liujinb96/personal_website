@@ -147,16 +147,12 @@
         {{/* Bio Section */}}
         {{ with ($block.content.text | emojify | $page.RenderString) | default $person_page.Content }}
         <div class="flex flex-col gap-6">
-          {{ $i18n_about := i18n "about_me" }}
-          {{ $about_default := cond (eq $i18n_about "about_me") "Professional Summary" $i18n_about }}
-          {{ $about_heading := $block.content.headings.about | default $about_default }}
           <div class="flex items-center gap-4 mb-2">
             <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center shadow-md">
               {{ partial "functions/get_icon" (dict "name" "identification" "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
             </div>
             <h3 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">个人简介</h3>
           </div>
-          <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $about_heading }}</h2>
           <div class="prose prose-lg dark:prose-invert text-gray-800 dark:text-gray-200 text-base sm:text-lg leading-relaxed">
             <div class="bio-text" {{ with $block.design.biography.style }}{{ (printf "style=\"%s\"" .) | safe.HTMLAttr }}{{end}}>
               {{ . }}
@@ -185,7 +181,7 @@
             <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-full flex items-center justify-center shadow-md">
               {{ partial "functions/get_icon" (dict "name" "sparkles" "attributes" "class='w-6 h-6 text-primary-600 dark:text-primary-400'") }}
             </div>
-            {{ $interests_heading := $block.content.headings.interests | default (i18n "interests") }}
+            {{ $interests_heading := $block.content.headings.interests | default "研究兴趣" }}
             <h3 class="text-xl font-bold text-gray-900 dark:text-white tracking-tight">{{ $interests_heading | markdownify }}</h3>
           </div>
           <div class="flex flex-wrap gap-3">

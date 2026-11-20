@@ -23,18 +23,18 @@ superuser: true
 highlight_name: true
 
 # Role/position/tagline
-role: 中国人民大学社会学院
+role: 中华女子学院社会工作学院
 
 # Organizations/Affiliations to display in Biography blox
 organizations:
-  - name: 社会学系博士研究生
-    url: https://ssr.ruc.edu.cn/
+  - name: 社会工作系讲师
+    url: https://www.cwu.edu.cn/xbyshfzxy/info/1161/13362.htm
 
 # Social network links
 # Need to use another icon? Simply download the SVG icon to your `assets/media/icons/` folder.
 profiles:
   - icon: at-symbol
-    url: "mailto:liujinbao@ruc.edu.cn"
+    url: "mailto:2601003@cwu.edu.cn"
     label: E-mail Me
   - icon: brands/github
     url: https://github.com/liujinb96
@@ -48,9 +48,10 @@ profiles:
 #    url:
 
 interests:
+  - 婚姻家庭
   - 社会分层与流动
   - 社会心态
   - 国际比较
 ---
 
-我是中国人民大学社会学系博士研究生刘金宝，主要研究方向涉及社会分层与社会流动、社会不平等、国际比较研究。目前的研究主要关注社会变迁的背景下中国地位认同的变化及其影响。如有适宜的合作机会，欢迎联系！
+我是中华女子学院社会工作学院社会工作系讲师刘金宝，主要研究方向涉及社会分层与社会流动、婚姻家庭、社会不平等、国际比较研究。目前的研究主要关注社会变迁的背景下中国地位认同的变化及其影响。如有适宜的合作机会，欢迎联系！

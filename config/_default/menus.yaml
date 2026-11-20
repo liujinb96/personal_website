@@ -13,9 +13,6 @@ main:
   - name: 研究
     url: /publications/
     weight: 12
-  - name: 动态
-    url: /updates/
-    weight: 13
   - name: 博客
     url: https://liujinb96.github.io/
     weight: 14

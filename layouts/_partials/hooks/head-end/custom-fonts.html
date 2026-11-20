@@ -1,3 +1,0 @@
-{{/* Inject custom stylesheet for fonts and research page tweaks */}}
-{{ $style := resources.Get "css/custom.css" | resources.Minify }}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
