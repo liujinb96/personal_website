@@ -1,7 +1,10 @@
 {{ define "main" }}
+  {{ $title := .Title }}
+  {{ if eq .Data.Plural "categories" }}{{ $title = "分类" }}{{ end }}
+  {{ if eq .Data.Plural "tags" }}{{ $title = "标签" }}{{ end }}
   <main class="blog-white">
     <header class="blog-white-header">
-      <h1>{{ .Title }}</h1>
+      <h1>{{ $title }}</h1>
       <p>共有 {{ len .Pages }} 篇文章</p>
     </header>
 

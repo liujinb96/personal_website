@@ -1,0 +1,131 @@
+{{ define "main" }}
+  {{ $authorPage := site.GetPage "/authors/admin" }}
+  {{ $authorParams := cond $authorPage $authorPage.Params dict }}
+  {{ $avatar := cond $authorPage ($authorPage.Resources.GetMatch "*avatar*") nil }}
+  {{ $blogSection := site.GetPage (printf "/%s" .Section) }}
+  {{ $postCount := cond $blogSection (len $blogSection.RegularPages) (len .Pages) }}
+  {{ $tagCount := len (default dict .Site.Taxonomies.tags) }}
+  {{ $categoryCount := len (default dict .Site.Taxonomies.categories) }}
+  {{ $latestPost := index (.Pages.ByDate.Reverse) 0 }}
+  {{ $pinnedTags := first 6 (.Site.Taxonomies.tags.ByCount) }}
+  {{ $isUpdates := eq .Section "updates" }}
+  {{ $sidebar := .Params.sidebar | default dict }}
+  {{ $statLabel := index $sidebar "stat_label" | default "文章" }}
+  {{ $tagline := index $sidebar "tagline" | default "又携书剑路茫茫" }}
+
+  <main class="blog-white{{ if $isUpdates }} updates-hub{{ end }}">
+    <div class="blog-white-layout">
+      <aside class="blog-white-sidebar light">
+        <div class="blog-white-profile">
+          {{ with $avatar }}<img src="{{ .RelPermalink }}" alt="{{ $authorPage.Title }}" />{{ end }}
+          <h2>{{ if $authorPage }}{{ $authorPage.Title }}{{ else }}{{ site.Title }}{{ end }}</h2>
+          <p>{{ $tagline }}</p>
+        </div>
+        <div class="blog-white-stats">
+          <a class="blog-white-stat" href="{{ .RelPermalink }}">
+            <strong>{{ $postCount }}</strong><span>{{ $statLabel }}</span>
+          </a>
+          <a class="blog-white-stat" href="/categories/">
+            <strong>{{ $categoryCount }}</strong><span>分类</span>
+          </a>
+          <a class="blog-white-stat" href="/tags/">
+            <strong>{{ $tagCount }}</strong><span>标签</span>
+          </a>
+        </div>
+        {{ with $authorParams.profiles }}
+        <div class="blog-white-sidebar-links">
+          {{ range . }}
+            {{ $link := .url | default .link }}
+            {{ if $link }}
+              <a href="{{ $link }}" target="_blank" rel="noopener" title="{{ .label | default .icon }}">
+                {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-4 h-4'") }}
+              </a>
+            {{ end }}
+          {{ end }}
+        </div>
+        {{ end }}
+      </aside>
+
+      <div class="blog-white-main">
+        <header class="blog-white-header">
+          <div class="blog-white-header-inner{{ if $isUpdates }} updates-hub-header{{ end }}">
+            <h1>{{ .Title }}</h1>
+            <p class="blog-white-lead">
+              {{ with .Content }}
+                {{ . | plainify }}
+              {{ else }}
+                记录阅读、写作与研究过程中值得留下来的片段。
+              {{ end }}
+            </p>
+
+            <div class="blog-white-hero-meta{{ if $isUpdates }} updates-hub-meta{{ end }}">
+              <span>共 {{ $postCount }} {{ $statLabel }}</span>
+              {{ with $latestPost }}
+                <span>最近更新于 {{ .Date.Format "2006年1月2日" }}</span>
+              {{ end }}
+            </div>
+
+            {{ if gt (len $pinnedTags) 0 }}
+              <div class="blog-white-featured-tags{{ if $isUpdates }} updates-hub-tags{{ end }}">
+                {{ range $pinnedTags }}
+                  <a class="blog-white-chip" href="{{ .Page.RelPermalink }}"># {{ .Page.Title }}</a>
+                {{ end }}
+              </div>
+            {{ end }}
+          </div>
+        </header>
+
+        <section class="blog-white-list">
+          {{ range .Pages.ByDate.Reverse }}
+            {{ $page := . }}
+            {{ $cover := $page.Resources.GetMatch "*cover*" | default ($page.Resources.GetMatch "*featured*") | default ($page.Resources.GetMatch "{featured,cover}.*") }}
+            <article class="blog-white-card{{ if $isUpdates }} blog-white-card--update{{ end }}">
+              <div class="blog-white-card-grid">
+                <div class="blog-white-card-body">
+                  <div class="blog-white-card-topline">
+                    <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006年1月2日" }}</time>
+                    {{ with $page.Params.categories }}
+                      <span class="blog-white-category">{{ index . 0 }}</span>
+                    {{ end }}
+                  </div>
+
+                  <h2><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h2>
+
+                  {{ if $page.Summary }}
+                    <p>{{ $page.Summary | plainify }}</p>
+                  {{ else if $page.Params.summary }}
+                    <p>{{ $page.Params.summary | plainify }}</p>
+                  {{ else if $page.Plain }}
+                    <p>{{ $page.Plain | truncate 140 }}</p>
+                  {{ end }}
+
+                  {{ with $page.Params.tags }}
+                    <div class="blog-white-tags">
+                      {{ range first 4 . }}<span class="blog-white-tag">{{ . }}</span>{{ end }}
+                    </div>
+                  {{ end }}
+
+                  <div class="blog-white-meta">
+                    <span>预计阅读 {{ $page.ReadingTime }} 分钟</span>
+                    <span>{{ $page.WordCount }} 字</span>
+                    <a class="blog-white-readmore" href="{{ $page.RelPermalink }}">阅读全文</a>
+                  </div>
+                </div>
+
+                <a class="blog-white-card-visual" href="{{ $page.RelPermalink }}" aria-label="{{ $page.Title }}">
+                  {{ with $cover }}
+                    <img src="{{ .RelPermalink }}" alt="{{ $page.Title }}" loading="lazy" />
+                  {{ else }}
+                    <div class="blog-white-card-visual-placeholder">
+                      <span>{{ substr $page.Title 0 1 }}</span>
+                    </div>
+                  {{ end }}
+                </a>
+              </div>
+            </article>
+          {{ end }}
+        </section>
+      </div>
+    </div>
+  </main>
+{{ end }}

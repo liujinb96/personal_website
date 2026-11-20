@@ -26,6 +26,12 @@
 - id: related
   translation: 相关
 
+- id: categories
+  translation: 分类
+
+- id: tags
+  translation: 标签
+
 # Callouts
 - id: callout_note
   translation: 注意
@@ -52,7 +58,7 @@
   translation: 下一页
 
 - id: figure
-  translation: '图%d:'
+  translation: "图%d:"
 
 - id: edit_page
   translation: 编辑本页
@@ -113,6 +119,9 @@
   translation: 下载
 
 # About widget
+
+- id: about_me
+  translation: 个人简介
 
 - id: interests
   translation: 研究兴趣
